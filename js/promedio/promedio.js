@@ -1,72 +1,64 @@
 import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4 } from "./utils.js";
+import { Promedio } from "./classPromedio.js";
 
 let aEstudiantes = []
 let estudiantes
 
-
 document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const nombre = getNombre()
-    const apellido = getApellido()
-    const nota1 = getNota1()
-    const nota2 = getNota2()
-    const nota3 = getNota3()
-    const nota4 = getNota4()
- 
-    alert(nota4)
+    const objPromedio = new Promedio(getNombre(), getApellido(), getNota1(), getNota2(), getNota3(), getNota4())
+
+    var promedio = objPromedio.calcularPromedio();
+    alert(promedio)
+
+    estudiantes = {
+        nom_est: objPromedio.getNombre,
+        ape_est: objPromedio.getApellido,
+        n1_est: objPromedio.getNota1,
+        n2_est: objPromedio.getNota2,
+        n3_est: objPromedio.getNota3,
+        n4_est: objPromedio.getNota4
+    }
+
+    aEstudiantes.push(estudiantes)
+
+    mostrarLista(aEstudiantes,promedio)
 })
 
-function procesar() {
+function mostrarLista(aEstudiantes,promedio) {
+    let modeloTabla = '';
+    modeloTabla += '<table class="table table-hover">';
+    modeloTabla += '<thead>';
+    modeloTabla += '<tr>';
+    modeloTabla += '<th>Nombre</th>';
+    modeloTabla += '<th>Apellido</th>';
+    modeloTabla += '<th>Nota 1</th>';
+    modeloTabla += '<th>Nota 2</th>';
+    modeloTabla += '<th>Nota 3</th>';
+    modeloTabla += '<th>Nota 4</th>';
+    modeloTabla += '<th>Promedio</th>';
+    modeloTabla += '</tr>';
+    modeloTabla += '</thead>';
+    aEstudiantes.forEach(est => {
+        modeloTabla += '<tbody>';
+        modeloTabla += '<tr>';
+        modeloTabla += '<td>' + est.nom_est + '</td>';
+        modeloTabla += '<td>' + est.ape_est + '</td>';
+        modeloTabla += '<td>' + est.n1_est + '</td>';
+        modeloTabla += '<td>' + est.n2_est + '</td>';
+        modeloTabla += '<td>' + est.n3_est + '</td>';
+        modeloTabla += '<td>' + est.n4_est + '</td>';
+        modeloTabla += '<td>' + promedio + '</td>';
+        modeloTabla += '</tr>';
+        modeloTabla += '</tbody>';
+    });
+    modeloTabla += '</table>';
 
+    document.querySelector('#tblRegistro').innerHTML = modeloTabla
 }
 
-class Promedio{
-    constructor(nombre,apellido,n1,n2,n3,n4){
-        this._nombre = nombre
-        this._apellido = apellido
-        this._n1 = n1
-        this._n2 = n2
-        this._n3 = n3
-        this._n4 = n4
-    }
-    get getNombre(){
-        return this._nombre
-    }
-    get getApellido(){
-        return this._apellido
-    }
-    get getNota1(){
-        return this._n1
-    }
-     get getNota2(){
-        return this._n2
-    }
-     get getNota3(){
-        return this._n3
-    }
-     get getNota4(){
-        return this._n4
-    }
-    set setNombre(nombre){
-        this._nombre = nombre
-    }
-    set setApellido(apellido){
-        this._apellido = apellido
-    }
-    set setNota1(nota1){
-        this._n1 = nota1
-    }
-    set setNota2(nota2){
-        this._n2 = nota2
-    }
-    set setNota3(nota3){
-        this._n3 = nota3
-    }
-    set setNota4(nota4){
-        this._n4 = nota4
-    }
-}
+
 
 
 
