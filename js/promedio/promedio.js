@@ -1,4 +1,4 @@
-import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4 } from "./utils.js";
+import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4 ,validarCampos} from "./utils.js";
 import { Promedio } from "./classPromedio.js";
 import { mostrarLista } from "./tblRegistro.js";
 
@@ -8,6 +8,17 @@ let estudiantes
 document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
     e.preventDefault()
 
+    if (!validarCampos()) {
+        return;
+    }
+ 
+    console.log(typeof getNombre());
+    console.log(typeof getApellido());
+    console.log(typeof getNota1());
+    console.log(typeof getNota2());
+    console.log(typeof getNota3());
+    console.log(typeof getNota4());
+    
     const objPromedio = new Promedio(getNombre(), getApellido(), getNota1(), getNota2(), getNota3(), getNota4())
 
     var promedio = objPromedio.calcularPromedio();

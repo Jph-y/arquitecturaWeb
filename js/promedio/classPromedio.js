@@ -2,10 +2,10 @@ export class Promedio{
     constructor(nombre,apellido,n1,n2,n3,n4){
         this._nombre = nombre
         this._apellido = apellido
-        this._n1 = Number(n1)
-        this._n2 = Number(n2)
-        this._n3 = Number(n3)
-        this._n4 = Number(n4)
+        this._n1 = n1
+        this._n2 = n2
+        this._n3 = n3
+        this._n4 = n4
     }
     get getNombre(){
         return this._nombre
@@ -44,7 +44,7 @@ export class Promedio{
         this._n4 = nota4
     }
     calcularPromedio(){
-        return (this._n1+this._n2+this._n3+this._n4) / 4;
+        return (this._n1+this._n2+this._n3+this._n4) / 4.0;
     }
 }
 
