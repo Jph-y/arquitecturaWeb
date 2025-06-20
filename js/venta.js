@@ -9,16 +9,17 @@ document.querySelector('#frmVenta').addEventListener('submit', (e) => {
 
     if (!validarDatos(marca, cantidad)) return;
 
-    const precio = asignarPrecio(marca);
-    const descuento = calcularDescuento(marca, precio);
-    const importe = calcularImporte(precio, descuento, cantidad);
+    const costo = asignarPrecio(marca);
+    //alert(precio)
+
+    const objPromedio = new Colchon(marca, cantidad)//precio out
+    const importe = calcularImporte(cantidad,costo)
 
     const producto = {
-        brand: marca,
-        quantity: cantidad,
-        price: precio,
-        discount: descuento,
-        amount: importe
+        brand_pro: objPromedio.getMarca,
+        quantity_pro: objPromedio.getCantidad,
+        price_pro: costo,
+        amount_pro: importe
     };
 
     productos.push(producto);
@@ -34,15 +35,49 @@ document.querySelector('#frmVenta').addEventListener('submit', (e) => {
     document.querySelector('#total').textContent = formatoMoneda(totalNeto);
 });
 
+class Colchon {
+    constructor(marca, cantidad) {//costo
+        this._marca = marca
+        //this._costo = costo
+        this._cantidad = cantidad
+
+    }
+    get getMarca() {
+        return this._marca
+    }
+    // get getCosto(){
+    //     return this._costo
+    // }
+    get getCantidad() {
+        return this._cantidad
+    }
+
+    set setMarca(marca) {
+        this._marca = marca
+    }
+    set setCantidad(cantidad) {
+        this._cantidad = cantidad
+    }
+    // set setCosto(costo){
+    //     this._costo = costo
+    // }
+
+
+}
+
+function calcularImporte(cantidad, costo) {
+    return (cantidad * costo);
+}
+
 function renderizarTabla(productos, subtotal, igv, total) {
     let html = `
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-dark table-striped">
+        <thead >
             <tr>
                 <th>MARCA</th>
                 <th>CANTIDAD</th>
                 <th>PRECIO</th>
-                <th>DESCUENTO</th>
+                
                 <th>IMPORTE</th>
             </tr>
         </thead>
@@ -51,11 +86,11 @@ function renderizarTabla(productos, subtotal, igv, total) {
     for (const p of productos) {
         html += `
             <tr>
-                <td>${p.brand}</td>
-                <td>${p.quantity}</td>
-                <td>${p.price.toFixed(2)}</td>
-                <td>${p.discount.toFixed(2)}</td>
-                <td>${p.amount.toFixed(2)}</td>
+                <td>${p.brand_pro}</td>
+                <td>${p.quantity_pro}</td>
+                <td>${p.price_pro.toFixed(2)}</td>
+                <td>${p.amount_pro.toFixed(2)}</td>
+                
             </tr>`;
     }
 
@@ -63,15 +98,15 @@ function renderizarTabla(productos, subtotal, igv, total) {
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td><td><strong>SUBTOTAL</strong></td>
+                <td colspan="2"></td><td><strong>SUBTOTAL</strong></td>
                 <td class="bg-success p-2 text-white">S/ ${subtotal.toFixed(2)}</td>
             </tr>
             <tr>
-                <td colspan="3"></td><td><strong>IGV 18%</strong></td>
+                <td colspan="2"></td><td><strong>IGV 18%</strong></td>
                 <td class="bg-success p-2 text-white">S/ ${igv.toFixed(2)}</td>
             </tr>
             <tr>
-                <td colspan="3"></td><td><strong>NETO</strong></td>
+                <td colspan="2"></td><td><strong>NETO</strong></td>
                 <td class="bg-success p-2 text-white">S/ ${total.toFixed(2)}</td>
             </tr>
         </tfoot>
@@ -86,19 +121,19 @@ function calcularSubtotal(importe) {
 }
 
 const calcularIGV = subtotal => subtotal * 0.18;
-const calcularTotal = (subtotal, igv) => subtotal - igv;
-const calcularImporte = (precio, descuento, cantidad) => (precio - descuento) * cantidad;
+const calcularTotal = (subtotal, igv) => subtotal + igv;
+//const calcularImporte = (precio, descuento, cantidad) => (precio - descuento) * cantidad;
 
-function calcularDescuento(marca, precio) {
-    const descuentos = {
-        Paraiso: 0.05,
-        Rosen: 0.10,
-        Cisne: 0.10,
-        Drimer: 0.15,
-        Forli: 0.05
-    };
-    return precio * (descuentos[marca] || 0);
-}
+// function calcularDescuento(marca, precio) {
+//     const descuentos = {
+//         Paraiso: 0.05,
+//         Rosen: 0.10,
+//         Cisne: 0.10,
+//         Drimer: 0.15,
+//         Forli: 0.05
+//     };
+//     return precio * (descuentos[marca] || 0);
+// }
 
 function asignarPrecio(marca) {
     const precios = {
