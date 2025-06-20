@@ -1,9 +1,21 @@
-import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4 ,validarCampos} from "./utils.js";
+import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4, validarCampos } from "./utils.js";
 import { Promedio } from "./classPromedio.js";
 import { mostrarLista } from "./tblRegistro.js";
 
 let aEstudiantes = []
 let estudiantes
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
 
 document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
     e.preventDefault()
@@ -11,14 +23,9 @@ document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
     if (!validarCampos()) {
         return;
     }
- 
-    console.log(typeof getNombre());
-    console.log(typeof getApellido());
-    console.log(typeof getNota1());
-    console.log(typeof getNota2());
-    console.log(typeof getNota3());
-    console.log(typeof getNota4());
+
     
+
     const objPromedio = new Promedio(getNombre(), getApellido(), getNota1(), getNota2(), getNota3(), getNota4())
 
     var promedio = objPromedio.calcularPromedio();
@@ -38,7 +45,17 @@ document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
     //     return (parseFloat(est.n1_est) + parseFloat(est.n2_est) + parseFloat(est.n3_est) + parseFloat(est.n4_est)) / 4;
     // })
 
-    mostrarLista(aEstudiantes,promedio)
+    mostrarLista(aEstudiantes, promedio)
+    document.querySelector('#frmRegistro').reset();
+    document.querySelector('#txtNombre').focus();
+
+
+    Toast.fire({
+        icon: "success",
+        title: "Alumno registrado correctamente",
+        text: `Nombre: ${objPromedio.getNombre}, Apellido: ${objPromedio.getApellido}, Promedio: ${promedio.toFixed(2)}`
+    });
+
 })
 
 

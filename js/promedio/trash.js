@@ -62,3 +62,10 @@ export const validarCampos = () => {
 
     return true
 }
+
+console.log(typeof getNombre());
+console.log(typeof getApellido());
+console.log(typeof getNota1());
+console.log(typeof getNota2());
+console.log(typeof getNota3());
+console.log(typeof getNota4());
