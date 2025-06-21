@@ -63,9 +63,7 @@ export const validarCampos = () => {
     return true
 }
 
-console.log(typeof getNombre());
-console.log(typeof getApellido());
-console.log(typeof getNota1());
-console.log(typeof getNota2());
-console.log(typeof getNota3());
-console.log(typeof getNota4());
+
+ // var promedio = aEstudiantes.map(est =>{
+    //     return (parseFloat(est.n1_est) + parseFloat(est.n2_est) + parseFloat(est.n3_est) + parseFloat(est.n4_est)) / 4;
+    // })

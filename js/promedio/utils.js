@@ -35,6 +35,18 @@ export const validarCampos = () => {
     return true
 }
 
+export const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+
 
 export const limpiarCampos = () => {
     document.querySelector('#txtNombre').value = ''
