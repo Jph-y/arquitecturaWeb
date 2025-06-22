@@ -1,44 +1,41 @@
-import { getNombre, getApellido, getNota1, getNota2, getNota3, getNota4, validarCampos, Toast } from "./utils.js";
-import { Promedio } from "./classPromedio.js";
-import { mostrarLista } from "./tblRegistro.js";
+import { getName, getLastName, getScore1, getScore2, getScore3, getScore4, validarCampos, Toast } from "./utils.js";
+import { Average } from "./average.js";
+import { renderTable } from "./table.js";
 
-let aEstudiantes = []
-let estudiantes
+const students = []
 
-
-
-document.querySelector('#frmRegistro').addEventListener('submit', (e) => {
+document.querySelector('#frmRegister').addEventListener('submit', (e) => {
     e.preventDefault()
 
     if (!validarCampos()) {
         return;
     }
 
-    const objPromedio = new Promedio(getNombre(), getApellido(), getNota1(), getNota2(), getNota3(), getNota4())
+    const average = new Average(getName(), getLastName(), getScore1(), getScore2(), getScore3(), getScore4())
 
-    var promedio = objPromedio.calcularPromedio();
+    var averageScore = average.calculateAverage();
 
-    estudiantes = {
-        nom_est: objPromedio.getNombre,
-        ape_est: objPromedio.getApellido,
-        n1_est: objPromedio.getNota1,
-        n2_est: objPromedio.getNota2,
-        n3_est: objPromedio.getNota3,
-        n4_est: objPromedio.getNota4
+    const student = {
+        name_est: average.getName,
+        last_est: average.getLastName,
+        score1_est: average.getScore1,
+        score2_est: average.getScore2,
+        score3_est: average.getScore3,
+        score4_est: average.getScore4
     }
 
-    aEstudiantes.push(estudiantes)
+    students.push(student)
 
-    mostrarLista(aEstudiantes, promedio)
+    renderTable(students, averageScore)
 
-    document.querySelector('#frmRegistro').reset();
-    document.querySelector('#txtNombre').focus();
+    document.querySelector('#frmRegister').reset();
+    document.querySelector('#txtName').focus();
 
 
     Toast.fire({
         icon: "success",
         title: "Alumno registrado correctamente",
-        text: `Nombre: ${objPromedio.getNombre}, Apellido: ${objPromedio.getApellido}, Promedio: ${promedio.toFixed(2)}`
+        text: `Nombre: ${average.getName}, Apellido: ${average.getLastName}, Promedio: ${averageScore.toFixed(2)}`
     });
 
 })

@@ -5,7 +5,6 @@ export const form = document.querySelector('#frmSale');
 export const tableContent = document.querySelector('#tblSale');
 
 export function validateForm() {
-    //console.log('Validando formulario', selectBrand, txtQuantity.value);
     if (!selectBrand.value || isNaN(txtQuantity.value) || txtQuantity.value <= 0) {
         alert('Debe seleccionar una marca válida y una cantidad mayor a cero');
         return false;
