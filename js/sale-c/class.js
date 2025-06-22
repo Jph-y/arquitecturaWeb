@@ -1,21 +1,21 @@
-export class Colchon {
-    constructor(marca, cantidad) {
-        this._marca = marca
-        this._cantidad = cantidad
+export class Mattress {
+    constructor(brand, quantity) {
+        this._brand = brand
+        this._quantity = quantity
 
     }
-    get getMarca() {
-        return this._marca
+    get getBrand() {
+        return this._brand
     }
 
-    get getCantidad() {
-        return this._cantidad
+    get getQuantity() {
+        return this._quantity
     }
 
-    set setMarca(marca) {
-        this._marca = marca
+    set setBrand(brand) {
+        this._brand = brand
     }
-    set setCantidad(cantidad) {
-        this._cantidad = cantidad
+    set setQuantity(quantity) {
+        this._quantity = quantity;
     }
 }

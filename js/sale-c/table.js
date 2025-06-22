@@ -1,6 +1,6 @@
-import {  formatoMoneda } from './utils.js';
+import {  formatMoney,tableContent } from './utils.js';
 
-export function renderizarTabla(productos, subtotal, igv, total) {
+export function renderTable(products, subtotal, igv, total) {
     let table = `
     <table class="table table-dark table-striped">
         <thead >
@@ -14,14 +14,14 @@ export function renderizarTabla(productos, subtotal, igv, total) {
         </thead>
         <tbody>`;
 
-    for (const p of productos) {
+    for (const p of products) {
         table += `
             <tr>
                 <td>${p.brand}</td>
                 <td>${p.quantity}</td>
-                <td>${formatoMoneda(p.price)}</td>
-                <td>${formatoMoneda(p.amount)}</td>
-                
+                <td>${formatMoney(p.price)}</td>
+                <td>${formatMoney(p.amount)}</td>
+
             </tr>`;
     }
 
@@ -30,18 +30,18 @@ export function renderizarTabla(productos, subtotal, igv, total) {
         <tfoot>
             <tr>
                 <td colspan="2"></td><td><strong>SUBTOTAL</strong></td>
-                <td class="bg-success p-2 text-white">S/ ${formatoMoneda(subtotal)}</td>
+                <td class="bg-success p-2 text-white">S/ ${formatMoney(subtotal)}</td>
             </tr>
             <tr>
                 <td colspan="2"></td><td><strong>IGV 18%</strong></td>
-                <td class="bg-success p-2 text-white">S/ ${formatoMoneda(igv)}</td>
+                <td class="bg-success p-2 text-white">S/ ${formatMoney(igv)}</td>
             </tr>
             <tr>
                 <td colspan="2"></td><td><strong>NETO</strong></td>
-                <td class="bg-success p-2 text-white">S/ ${formatoMoneda(total)}</td>
+                <td class="bg-success p-2 text-white">S/ ${formatMoney(total)}</td>
             </tr>
         </tfoot>
     </table>`;
 
-    document.getElementById('tblVenta').innerHTML = table;
+    tableContent.innerHTML = table;
 }
