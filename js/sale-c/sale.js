@@ -8,16 +8,11 @@ const products = [];
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const brand = selectBrand.value;
-    const quantity = txtQuantity.value;
+    if (!validateForm()) return;
 
-    if (!validateForm(brand, quantity)) return;
-
-    const cost = setPrice(brand);
-
-    const mattress = new Mattress(brand, quantity)
-
-    const amount = calculateAmount(quantity,cost)
+    const mattress = new Mattress(selectBrand.value, txtQuantity.value)
+    const cost = setPrice(mattress.getBrand);
+    const amount = calculateAmount(mattress.getQuantity, cost);
 
     const product = {
         brand: mattress.getBrand,
