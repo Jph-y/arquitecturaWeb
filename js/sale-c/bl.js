@@ -1,5 +1,7 @@
 let total = 0;
 
+const IGV_RATE = 0.18;
+
 const prices = {
         Paraiso: 350.00,
         Rosen: 400.00,
@@ -8,14 +10,8 @@ const prices = {
         Forli: 300.00
     };
 
-export function calculateSubtotal(amount) {
-    total += amount;
-    return total;
-}
-
-export const calculateIGV = subtotal => subtotal * 0.18;
+export const calculateSubtotal = amount => total += amount;
+export const calculateIGV = subtotal => subtotal * IGV_RATE;
 export const calculateTotal = (subtotal, igv) => subtotal + igv;
 export const setPrice = brand => prices[brand] || 0;
-export function calculateAmount(quantity, cost) {
-    return (quantity * cost);
-}
+export const calculateAmount = (quantity, cost) => (quantity * cost);
